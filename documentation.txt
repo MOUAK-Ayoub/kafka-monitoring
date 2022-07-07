@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+# on kafka.service
+Environment="KAFKA_OPTS=-javaagent:/home/ansible/prometheus/jmx_prometheus_javaagent-0.17.0.jar=7075:/home/ansible/prometheus/kafka-2_0_0.yml"
+
+# the port 7075 in KAFKA_OPTS must be on the prometheus.yaml targets
+
+# Launch kafka on a node
+sudo service kafka status
+
+# URL for kafka topics UI
+http://5533aa4e264c.mylabserver.com:8000/#/
+
+
+# prometheus metrics
+http://5533aa4e264c.mylabserver.com:7075
+
+# prometheus UI
+http://5533aa4e264c.mylabserver.com:9090/graph
