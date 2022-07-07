@@ -32,14 +32,14 @@ resource "aws_subnet" "subnet_monitoring" {
 
 
 resource "aws_route_table" "monitoring-route" {
-  provider = aws.region-master
-  vpc_id   = aws_vpc.aws_vpc_master.id
+  provider = aws.region-monitoring
+  vpc_id   = aws_vpc.aws_vpc_monitoring.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw_monitoring.id
 
   }
- 
+
   lifecycle {
     ignore_changes = all
   }
