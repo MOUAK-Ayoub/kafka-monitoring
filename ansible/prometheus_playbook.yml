@@ -1,0 +1,44 @@
+---
+
+- name: Actions for all servers
+  hosts: administration
+  become: yes
+  vars_files:
+     - "./vars/{{env}}.yaml"
+  tasks:
+     - name: install java 8 
+       yum:
+         name: "java-{{kafka.java.version}}-openjdk"
+         state: latest
+
+     - name: Check the prometheus directory exists
+       stat:
+         path: ~/prometheus
+       register: prometheus_dir  
+                
+     - name: Download prometheus 
+       get_url:
+         url: "https://github.com/prometheus/prometheus/releases/download/v2.36.2/prometheus-2.36.2.linux-amd64.tar.gz"
+         dest: /tmp/
+       when: not prometheus_dir.stat.exists
+         
+     - name: Extract prometheus tar
+       unarchive:
+         src: /tmp/prometheus-2.36.2.linux-amd64.tar.gz
+         dest: ~/
+       when: not prometheus_dir.stat.exists
+        
+     - name:  rename prometheus folder
+       command: "mv ~/prometheus-2.36.2 ~/prometheus"
+       when: not prometheus_dir.stat.exists
+
+     - name: Copy /etc/hosts
+       copy:
+        src: ./vars/hosts
+        dest: /etc/hosts
+  
+     - name: Copy prometheus config file
+       copy:
+        src: ../prometheus.yml
+        dest: ./prometheus/prometheus.yml
+   
