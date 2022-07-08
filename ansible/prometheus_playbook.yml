@@ -53,7 +53,7 @@
           - zoonavigator-docker-compose.yaml
 
      - name:  Run docker compose on the two files
-       command: "docker-compose -f /home/ec2-user/docker/{{ item }} up -d"
+       command: " sudo docker-compose -f /home/ec2-user/docker/{{ item }} up -d "
        loop:
          - zoonavigator-docker-compose.yaml
          - kafka-topics-ui-docker-compose.yaml
