@@ -1,6 +1,6 @@
 ---
 
-- name: Actions for all servers
+- name: Monitoring using prometheus, zoonavigator, landoop UI
   hosts: administration
   remote_user: ec2-user
   become: yes
@@ -43,4 +43,17 @@
        copy:
         src: ../prometheus.yml
         dest: ./prometheus/prometheus.yml
-   
+
+     - name: Copy prometheus config file
+       copy:
+        src: ../docker/{{ item}}
+        dest: ./docker/  
+       loop:
+          - kafka-topics-ui-docker-compose.yaml
+          - zoonavigator-docker-compose.yaml
+
+     - name:  Run docker compose on the two files
+       command: "docker-compose -f {{ item }} up -d"
+       loop:
+         - zoonavigator-docker-compose.yaml
+         - kafka-topics-ui-docker-compose.yaml
