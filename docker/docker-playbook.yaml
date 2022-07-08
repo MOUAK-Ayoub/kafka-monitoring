@@ -64,3 +64,9 @@
         - boto
         - boto3
         - docker-compose
+        
+    - name: Add the current user to the docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes

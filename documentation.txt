@@ -12,6 +12,12 @@ terraform apply -auto--approve
 # Put aws ec2 instance public ip (or public dns) on the inventory
 # Put on./ansible/vars/hosts the public ip of the kafak1 broker
 # Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
+-------------------------------------------------------------------------------------------------
+
+cd docker/
+
+ansible-playbook docker-playbook.yaml \
+-i ../ansible/vars/inventory 
 
 -------------------------------------------------------------------------------------------------
 
@@ -19,7 +25,7 @@ cd ansible/
 
 ansible-playbook prometheus_playbook.yml \
 -i ./vars/inventory \
--e "env=dev" \
+-e "env=dev" 
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -40,3 +46,6 @@ http://5533aa4e264c.mylabserver.com:7077
 
 # prometheus UI
 http://5533aa4e264c.mylabserver.com:9090/graph
+
+
+
