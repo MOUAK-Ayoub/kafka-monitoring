@@ -53,8 +53,6 @@
           - zoonavigator-docker-compose.yaml
 
      - name: Run docker compose on the two files
-       community.docker.docker_compose:
-         project_src: /home/ec2-user/docker/
-         files:
-           - zoonavigator-docker-compose.yaml
-           - kafka-topics-ui-docker-compose.yaml
+       shell:
+         cmd: "docker-compose -f kafka-topics-ui-docker-compose.yaml -f zoonavigator-docker-compose.yaml up -d"
+         chdir: /home/ec2-user/docker
