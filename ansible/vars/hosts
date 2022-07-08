@@ -2,4 +2,6 @@
 ::1         localhost6 localhost6.localdomain6
 
 
-54.213.135.131 kafka1
+54.186.239.153 kafka1
+34.211.170.111 kafka2
+52.27.7.45     kafka3
