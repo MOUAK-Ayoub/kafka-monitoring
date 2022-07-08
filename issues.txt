@@ -2,3 +2,15 @@
 even when using sudo with systemctl
 
 Solution: create directoey in user home
+
+2/ the port 7075 on kafka cluster is not open
+on cloud servers of cloud guru  port 7075 is closed, and you can't open it
+see: 
+https://help.acloud.guru/hc/en-us/articles/360001477955-Cloud-Playground-FAQ#h_91f2897f-8feb-40a6-aeac-374c51c927c5
+
+3/ curl kafak1:8000 give error no route host
+
+   cause: I was playing with iptables
+   solution: flush all rules with 
+   sudo iptables -F
+
