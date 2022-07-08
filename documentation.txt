@@ -1,11 +1,7 @@
 
-
-#Put on./ansible/vars/hosts the public ip of the kafak1 broker
-#Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
-
--------------------------------------------------------------------------------------------------
 #Instantiate the enviroment on aws
 
+aws configure add the 2 keys and default region
 cd terraform
 ./aws_tf_user.sh
 terraform init
@@ -13,17 +9,24 @@ terraform apply -auto--approve
 
 -------------------------------------------------------------------------------------------------
 
+# Put aws ec2 instance public ip (or public dns) on the inventory
+# Put on./ansible/vars/hosts the public ip of the kafak1 broker
+# Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
+
+-------------------------------------------------------------------------------------------------
+
+cd ansible/
+
 ansible-playbook prometheus_playbook.yml \
 -i ./vars/inventory \
 -e "env=dev" \
 
 
-
 -------------------------------------------------------------------------------------------------------------------
 # on kafka.service
-Environment="KAFKA_OPTS=-javaagent:/home/ansible/prometheus/jmx_prometheus_javaagent-0.17.0.jar=7075:/home/ansible/prometheus/kafka-2_0_0.yml"
+Environment="KAFKA_OPTS=-javaagent:/home/ansible/prometheus/jmx_prometheus_javaagent-0.17.0.jar=7077:/home/ansible/prometheus/kafka-2_0_0.yml"
 
-# the port 7075 in KAFKA_OPTS must be on the prometheus.yaml targets
+# the port 7077 in KAFKA_OPTS must be on the prometheus.yaml targets
 
 # Launch kafka on a node
 sudo service kafka status
@@ -33,7 +36,7 @@ http://5533aa4e264c.mylabserver.com:8000/#/
 
 
 # prometheus metrics
-http://5533aa4e264c.mylabserver.com:7075
+http://5533aa4e264c.mylabserver.com:7077
 
 # prometheus UI
 http://5533aa4e264c.mylabserver.com:9090/graph
