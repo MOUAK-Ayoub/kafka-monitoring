@@ -2,18 +2,19 @@
 
 - name: Actions for all servers
   hosts: administration
+  remote_user: ec2-user
   become: yes
   vars_files:
      - "./vars/{{env}}.yaml"
   tasks:
      - name: install java 8 
        yum:
-         name: "java-{{kafka.java.version}}-openjdk"
+         name: "java-{{java.version}}-openjdk-devel"
          state: latest
 
      - name: Check the prometheus directory exists
        stat:
-         path: ~/prometheus
+         path: /home/ec2-user/prometheus
        register: prometheus_dir  
                 
      - name: Download prometheus 
@@ -24,12 +25,13 @@
          
      - name: Extract prometheus tar
        unarchive:
+         remote_src: yes
          src: /tmp/prometheus-2.36.2.linux-amd64.tar.gz
-         dest: ~/
+         dest: /home/ec2-user
        when: not prometheus_dir.stat.exists
         
      - name:  rename prometheus folder
-       command: "mv ~/prometheus-2.36.2 ~/prometheus"
+       command: "mv /home/ec2-user/prometheus-2.36.2.linux-amd64 /home/ec2-user/prometheus"
        when: not prometheus_dir.stat.exists
 
      - name: Copy /etc/hosts

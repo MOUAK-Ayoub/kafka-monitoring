@@ -2,13 +2,4 @@
 ::1         localhost6 localhost6.localdomain6
 
 
-172.31.100.122   5533aa4e264c.mylabserver.com
-172.31.99.189 slave2
-172.31.97.196 slave1
-
-172.31.100.122 kafka1
-172.31.99.189 kafka3
-172.31.97.196 kafka2
-172.31.100.122 zookeeper1
-172.31.99.189 zookeeper3
-172.31.97.196 zookeeper2
+54.213.135.131 kafka1
