@@ -13,4 +13,7 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ["kafka1:7077"]
+      - targets: 
+          - kafka1:7077
+          - kafka2:7077
+          - kafka3:7077

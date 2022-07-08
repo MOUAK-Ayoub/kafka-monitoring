@@ -1,6 +1,6 @@
 
 
-#Put on./ansible/hosts the public ip of the kafak1 broker
+#Put on./ansible/vars/hosts the public ip of the kafak1 broker
 #Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
 
 -------------------------------------------------------------------------------------------------
@@ -16,9 +16,6 @@ terraform apply -auto--approve
 ansible-playbook prometheus_playbook.yml \
 -i ./vars/inventory \
 -e "env=dev" \
-
-
-
 
 
 
