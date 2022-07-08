@@ -24,6 +24,12 @@ resource "aws_security_group" "sg-monitoring" {
     protocol        = "tcp"
     cidr_blocks = [var.external-ip]
   }
+  ingress {
+    from_port       = 9000
+    to_port         = 9000
+    protocol        = "tcp"
+    cidr_blocks = [var.external-ip]
+  }
 
   egress {
     from_port   = 0

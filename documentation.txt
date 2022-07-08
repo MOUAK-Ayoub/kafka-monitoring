@@ -19,6 +19,7 @@ cd docker/
 ansible-playbook docker-playbook.yaml \
 -i ../ansible/vars/inventory 
 
+Must reboot intance
 -------------------------------------------------------------------------------------------------
 
 cd ansible/
