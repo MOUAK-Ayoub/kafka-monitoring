@@ -6,23 +6,23 @@ services:
     image: confluentinc/cp-schema-registry:3.2.1
     network_mode: host
     environment:
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper1:2222,zookeeper2:2222,zookeeper3:2222/kafka
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: kafka1:2222,kafka2:2222,kafka3:2222/kafka
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
       # please replace this setting by the IP of your web tools server
-      SCHEMA_REGISTRY_HOST_NAME: "54.186.239.153"
+      SCHEMA_REGISTRY_HOST_NAME: "ec2-44-202-220-193.compute-1.amazonaws.com"
     restart: always
 
   # https://github.com/confluentinc/kafka-rest
   confluent-rest-proxy:
     image: confluentinc/cp-kafka-rest:3.2.1
-    network_mode: host
+    network_mode: host    
     environment:
       KAFKA_REST_BOOTSTRAP_SERVERS: kafka1:9092,kafka2:9092,kafka3:9092
-      KAFKA_REST_ZOOKEEPER_CONNECT: zookeeper1:2222,zookeeper2:2222,zookeeper3:2222/kafka
+      KAFKA_REST_ZOOKEEPER_CONNECT: kafka1:2222,kafka2:2222,kafka3:2222/kafka
       KAFKA_REST_LISTENERS: http://0.0.0.0:8082/
       KAFKA_REST_SCHEMA_REGISTRY_URL: http://localhost:8081/
       # please replace this setting by the IP of your web tools server
-      KAFKA_REST_HOST_NAME: "54.186.239.153"
+      KAFKA_REST_HOST_NAME: "ec2-44-202-220-193.compute-1.amazonaws.com"
     depends_on:
       - confluent-schema-registry
     restart: always
