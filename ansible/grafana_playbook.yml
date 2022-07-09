@@ -34,9 +34,9 @@
         src: ../grafana/defaults.ini
         dest: ./grafana/conf/defaults.ini
 
-     - name: Add prometheus service
+     - name: Add grafana service
        copy:
-        src: ../grafana/grafana-service
+        src: ../grafana/grafana.service
         dest: /etc/systemd/system/grafana.service
         mode: u+x
 
