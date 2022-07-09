@@ -5,7 +5,7 @@ aws configure add the 2 keys and default region
 cd terraform
 ./aws_tf_user.sh
 terraform init
-terraform apply -auto--approve
+terraform apply --auto-approve
 
 -------------------------------------------------------------------------------------------------
 
@@ -18,16 +18,16 @@ terraform apply -auto--approve
 
 cd ansible/
 
-ansible-playbook ../docker/docker-playbook.yaml prometheus_playbook.yml \
+ansible-playbook ../docker/docker-playbook.yaml \
+prometheus_playbook.yml \
+grafana_playbook.yml \
 -i ./vars/inventory \
 -e "env=dev" 
 
 
 -------------------------------------------------------------------------------------------------------------------
 
-# Launch prometheus, kafka topics UI and Zoonavigator
-cd ~/prometheus
-./prometheus
+# kafka topics UI and Zoonavigator
 
 cd ~/docker
 docker-compose -f kafka-topics-ui-docker-compose.yaml -f zoonavigator-docker-compose.yaml up -d

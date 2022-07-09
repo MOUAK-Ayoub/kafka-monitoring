@@ -46,7 +46,7 @@
 
      - name: Add prometheus service
        copy:
-        src: ../prometheus/prometheus-service
+        src: ../prometheus/prometheus.service
         dest: /etc/systemd/system/prometheus.service
         mode: u+x
 
