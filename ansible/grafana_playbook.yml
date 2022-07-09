@@ -27,7 +27,7 @@
         
      - name:  rename prometheus folder
        command: "mv /home/ec2-user/grafana-5.2.1.linux-amd64 /home/ec2-user/grafana"
-       when: not prometheus_dir.stat.exists
+       when: not grafana_dir.stat.exists
 
      - name: Copy grafana  config file
        copy:
