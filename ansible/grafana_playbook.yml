@@ -22,11 +22,11 @@
        unarchive:
          remote_src: yes
          src: /tmp/grafana-5.2.1.linux-amd64.tar.gz
-         dest: /home/ec2-user
+         dest: /home/ec2-user/
        when: not grafana_dir.stat.exists
         
      - name:  rename prometheus folder
-       command: "mv /home/ec2-user/grafana-5.2.1.linux-amd64 /home/ec2-user/grafana"
+       command: "mv /home/ec2-user/grafana-5.2.1 /home/ec2-user/grafana"
        when: not grafana_dir.stat.exists
 
      - name: Copy grafana  config file
