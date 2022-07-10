@@ -1,7 +1,9 @@
 # the kafka cluster must be started
 
 
-
+cd Kafka-setup/
+ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml --tags=launch
+ansible-playbook -i ./vars/inventory -e "env=dev"  kafka_playbook.yaml --tags=launch
 
 -------------------------------------------------------------------------------------------------
 
@@ -10,8 +12,7 @@
 aws configure add the 2 keys (of the cloud_user ) and default region
 cd terraform
 ./aws_tf_user.sh
-terraform init
-terraform apply --auto-approve
+
 
 -------------------------------------------------------------------------------------------------
 
