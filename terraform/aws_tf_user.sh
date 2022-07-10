@@ -16,13 +16,23 @@ aws iam create-user --user-name terraform
 sleep 5s
 
 aws iam attach-user-policy --policy-arn $terraform_policy_arn --user-name terraform
-sleep 30s
+sleep 10s
 
 aws iam create-access-key --user-name terraform > tokens.json
-export aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
-export aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
+export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
+export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
 sleep 5s
 
-aws s3api create-bucket --bucket terraformstatefile2022
+aws s3api create-bucket --bucket terraformstatefile20222020
 
- 
+sleep 10s
+
+echo $aws_access_key
+echo "\n secret:"
+echo $aws_secret_key
+
+terraform init -reconfigure
+
+sleep 10s
+
+terraform apply --auto-approve 

@@ -5,7 +5,7 @@ Documentation=https://prometheus.io/docs/introduction/overview/
 After=network-online.target
 
 [Service]
-User=ec2-user
+User=root
 ExecStart=/home/ec2-user/prometheus/prometheus --config.file=/home/ec2-user/prometheus/prometheus.yml --storage.tsdb.path=/home/ec2-user/prometheus/data
 
 [Install]
