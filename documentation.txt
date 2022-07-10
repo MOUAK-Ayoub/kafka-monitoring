@@ -1,7 +1,13 @@
+# the kafka cluster must be started
+
+
+
+
+-------------------------------------------------------------------------------------------------
 
 #Instantiate the enviroment on aws
 
-aws configure add the 2 keys and default region
+aws configure add the 2 keys (of the cloud_user ) and default region
 cd terraform
 ./aws_tf_user.sh
 terraform init
@@ -31,6 +37,14 @@ grafana_playbook.yml \
 
 cd ~/docker
 docker-compose -f kafka-topics-ui-docker-compose.yaml -f zoonavigator-docker-compose.yaml up -d
+-------------------------------------------------------------------------------------------------------------------
+Create a kafka dashboard
+
+1/ Create a datasource with prometheus, putting the url of prometheus localhost:9090
+2/ Create a dashboard with the datasource above
+
+
+
 
 -------------------------------------------------------------------------------------------------------------------
 # on kafka.service
@@ -40,6 +54,9 @@ Environment="KAFKA_OPTS=-javaagent:/home/ansible/prometheus/jmx_prometheus_javaa
 
 # Launch kafka on a node
 sudo service kafka status
+
+# URL for Zoonavigator
+http://5533aa4e264c.mylabserver.com:9000/#/
 
 # URL for kafka topics UI
 http://5533aa4e264c.mylabserver.com:8000/#/
@@ -51,5 +68,7 @@ http://5533aa4e264c.mylabserver.com:7077
 # prometheus UI
 http://5533aa4e264c.mylabserver.com:9090/graph
 
+# Grafana 
+http://5533aa4e264c.mylabserver.com:3000/graph
 
 

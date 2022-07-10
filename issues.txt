@@ -3,14 +3,23 @@ even when using sudo with systemctl
 
 Solution: create directoey in user home
 
+----------------------------------------------------------------------------------------------
 2/ the port 7075 on kafka cluster is not open
 on cloud servers of cloud guru  port 7075 is closed, and you can't open it
 see: 
 https://help.acloud.guru/hc/en-us/articles/360001477955-Cloud-Playground-FAQ#h_91f2897f-8feb-40a6-aeac-374c51c927c5
 
+----------------------------------------------------------------------------------------------
 3/ curl kafak1:8000 give error no route host
 
    cause: I was playing with iptables
    solution: flush all rules with 
    sudo iptables -F
 
+----------------------------------------------------------------------------------------------
+4/ the kafka  brokers doesn't start
+
+Error: ERROR Error while creating ephemeral at /brokers/ids/1, node already exists and owner '72057891242901508' does not match current session '216172965584240643' (kafka.zk.KafkaZkClient$CheckedEphemeral)
+
+Solution: (temporary, because it deletes the brokers data )
+ansible -i vars/inventory dev -b -m file -a "name=~/data/kafka/ state=absent"
