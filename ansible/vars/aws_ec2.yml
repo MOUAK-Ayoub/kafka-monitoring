@@ -1,0 +1,13 @@
+---
+plugin: aws_ec2
+
+# Filtres sur la région et les tags voulus
+regions:
+  - eu-east-1
+
+
+# Grouper les instances par Nom
+keyed_groups:
+ - key: tags.Name
+   separator: ''
+   prefix: ''
