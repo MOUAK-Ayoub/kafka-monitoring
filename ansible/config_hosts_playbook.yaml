@@ -1,0 +1,21 @@
+---
+
+- name: Configure /etc/hosts file of the monitoring server
+  hosts: localhost
+  become: yes
+  vars_files:
+     - "./vars/dev.yaml"
+
+  tasks:
+
+     - name: Get public ip of brokers
+       commannd: " dig +short {{ item.dns }} "
+       register: r
+       loop: "{{ kafka.servers }}"
+ 
+     - name: Configure swappinness
+       lineinfile:
+          path: ./vars/hosts
+          line: " {{ item.1 }} kafka{{ item.0 }}"
+       with_indexed_items: "{{r.results}}"
+                

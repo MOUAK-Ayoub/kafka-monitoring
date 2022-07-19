@@ -27,10 +27,6 @@ aws s3api create-bucket --bucket terraformstatefile2022
 
 sleep 10s
 
-echo $aws_access_key
-echo "\n secret:"
-echo $aws_secret_key
-
 terraform init -reconfigure
 
 sleep 10s

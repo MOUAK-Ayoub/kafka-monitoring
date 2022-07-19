@@ -1,6 +1,6 @@
 ---
 
-- name: Monitoring using prometheus, zoonavigator, landoop UI
+- name: Monitoring using prometheus
   hosts: administration
   remote_user: ec2-user
   become: yes

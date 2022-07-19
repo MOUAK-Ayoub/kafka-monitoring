@@ -5,6 +5,8 @@ cd Kafka-setup/
 ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml --tags=launch
 ansible-playbook -i ./vars/inventory -e "env=dev"  kafka_playbook.yaml --tags=launch
 
+ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml kafka_playbook.yaml --tags=launch
+
 -------------------------------------------------------------------------------------------------
 
 #Instantiate the enviroment on aws
@@ -28,7 +30,7 @@ cd ansible/
 ansible-playbook ../docker/docker-playbook.yaml \
 prometheus_playbook.yml \
 grafana_playbook.yml \
--i ./vars/inventory \
+-i ./vars/aws_ec2.yaml \
 -e "env=dev" 
 
 
@@ -72,4 +74,16 @@ http://5533aa4e264c.mylabserver.com:9090/graph
 # Grafana 
 http://5533aa4e264c.mylabserver.com:3000/graph
 
+-------------------------------------------------------------------------------------------------------------------
+# Kafka command
+
+bin/kafka-topics.sh --zookeeper zookeeper1:2222/kafka \
+  --topic test --create \
+  --partitions 3 --replication-factor 2
+
+
+bin/kafka-console-producer.sh --bootstrap-server kafka1:9092,kafka2:9092 --topic new 
+
+
+bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka3:9092 --topic new --from-beginning
 
