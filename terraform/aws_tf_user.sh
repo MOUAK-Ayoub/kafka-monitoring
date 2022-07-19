@@ -23,7 +23,7 @@ export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
 export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
 sleep 5s
 
-aws s3api create-bucket --bucket terraformstatefile20222020
+aws s3api create-bucket --bucket terraformstatefile2022
 
 sleep 10s
 
