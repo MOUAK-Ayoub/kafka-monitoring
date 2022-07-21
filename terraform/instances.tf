@@ -7,7 +7,7 @@ data "aws_ssm_parameter" "ami-linux-monitoring" {
 resource "aws_key_pair" "key-monitoring" {
   provider   = aws.region-monitoring
   key_name   = "monitoring"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file("/home/ansible/.ssh/id_rsa.pub")
 }
 
 resource "aws_instance" "monitoring-master" {
