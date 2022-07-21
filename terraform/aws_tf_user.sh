@@ -6,7 +6,7 @@
 
 aws iam create-policy \
  --policy-name TfUserPolicy \
- --policy-document file:///home/ansible/aws-terrraform-ansible/TfUserPolicy.json
+ --policy-document file://./TfUserPolicy.json
  
 sleep 5s
 

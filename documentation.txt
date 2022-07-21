@@ -94,3 +94,6 @@ Jenkins:
 
 user: ayoub
 pwd: ayoub2022
+
+1/  On the Jenkins dashboard, go to Manage Jenkins > Manage Plugins in the Available tab. Search for the Pipeline: AWS Steps plugin and choose Install without restart.
+2 / Navigate to Manage Jenkins > Manage Credentials > Jenkins (global) > Global Credentials > Add Credentials.
