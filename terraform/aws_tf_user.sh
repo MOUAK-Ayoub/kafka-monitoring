@@ -32,3 +32,8 @@ terraform init -reconfigure
 sleep 10s
 
 terraform apply --auto-approve 
+
+sleep 20s
+
+rm tokens.json
+

@@ -24,7 +24,7 @@ resource "aws_instance" "monitoring-master" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "Prometheus monitoring instance"
+    Name = "administration"
   }
 
   depends_on = [aws_main_route_table_association.vpc_route_asso_monitoring]

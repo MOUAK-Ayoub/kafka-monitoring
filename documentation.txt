@@ -16,25 +16,22 @@ cd terraform
 ./aws_tf_user.sh
 
 
--------------------------------------------------------------------------------------------------
-
-# Put aws ec2 instance public ip (or public dns) on the inventory
-# Put on./ansible/vars/hosts the public ip of the kafak1 broker
-# Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
 
 -------------------------------------------------------------------------------------------------
 # If docker and docker-compose is not installed
-
 cd ansible/
 
-ansible-playbook ../docker/docker-playbook.yaml \
+ansible-inventory -i ./vars/aws_ec2.yml --graph
+
+ansible-playbook -i ./vars/aws_ec2.yml \
+config_hosts_playbook \
+../docker/docker-playbook.yaml  \
 prometheus_playbook.yml \
 grafana_playbook.yml \
--i ./vars/aws_ec2.yaml \
 -e "env=dev" 
 
 
--------------------------------------------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------------------------------------------
 
 # kafka topics UI and Zoonavigator
 
@@ -78,7 +75,7 @@ http://5533aa4e264c.mylabserver.com:3000/graph
 # Kafka command
 
 bin/kafka-topics.sh --zookeeper zookeeper1:2222/kafka \
-  --topic test --create \
+  --topic test2 --create \
   --partitions 3 --replication-factor 2
 
 
