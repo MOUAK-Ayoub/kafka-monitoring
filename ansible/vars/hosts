@@ -1,6 +1,6 @@
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost6 localhost6.localdomain6
-
-35.89.206.119 kafka1
-34.216.252.238 kafka2
-34.212.41.236 kafka3
+ 34.216.119.127 kafka1
+ 34.220.224.156 kafka2
+ 34.222.231.158 kafka3
+ 54.202.233.74 kafka1
+ 34.220.78.106 kafka2
+ 34.217.97.51 kafka3

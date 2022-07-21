@@ -84,3 +84,13 @@ bin/kafka-console-producer.sh --bootstrap-server kafka1:9092,kafka2:9092 --topic
 
 bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka3:9092 --topic new --from-beginning
 
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Jenkins:
+
+user: ayoub
+pwd: ayoub2022
+
+1/  On the Jenkins dashboard, go to Manage Jenkins > Manage Plugins in the Available tab. Search for the Pipeline: AWS Steps plugin and choose Install without restart.
+2 / Navigate to Manage Jenkins > Manage Credentials > Jenkins (global) > Global Credentials > Add Credentials.

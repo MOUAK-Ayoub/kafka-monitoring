@@ -9,13 +9,13 @@
   tasks:
 
      - name: Get public ip of brokers
-       commannd: " dig +short {{ item.dns }} "
+       command: " dig +short {{ item.dns }} "
        register: r
        loop: "{{ kafka.servers }}"
  
      - name: Configure swappinness
        lineinfile:
           path: ./vars/hosts
-          line: " {{ item.1 }} kafka{{ item.0 }}"
+          line: " {{ item.1.stdout }} kafka{{ item.0 +1 }}"
        with_indexed_items: "{{r.results}}"
                 
