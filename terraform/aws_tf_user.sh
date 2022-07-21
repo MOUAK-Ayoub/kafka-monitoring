@@ -25,10 +25,3 @@ sleep 5s
 
 aws s3api create-bucket --bucket terraformstatefile2022
 
-sleep 10s
-
-terraform init -reconfigure
-
-sleep 10s
-
-terraform apply --auto-approve 
