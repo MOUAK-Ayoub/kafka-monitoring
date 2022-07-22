@@ -70,11 +70,18 @@
     - name: Let docker-compose be executable
       shell: "chmod +x /usr/local/bin/docker-compose"
 
+
     - name: Add the current user to the docker group
       user:
         name: ec2-user
         groups: docker
         append: yes
+
+    - name: Create symbolic link for docker-compose
+      file:
+        src: "/usr/local/bin/docker-compose"
+        dest: "/usr/bin/docker-compose"
+        state: link
         
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
