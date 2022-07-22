@@ -66,11 +66,11 @@
         - boto3
 
     - name: Install docker compose
-      shell: "  curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
-        
+      shell: "curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+
     - name: Let docker-compose be executable
       shell: "chmod +x /usr/local/bin/docker-compose"
-        
+
     - name: Add the current user to the docker group
       user:
         name: ec2-user
