@@ -23,14 +23,13 @@
         - device-mapper-persistent-data
         - lvm2
         - amazon-linux-extras
-        - docker-compose
 
 
     - name: Add extras repository
       shell: yum-config-manager --enable extras
 
     - name: Enable Some packages from amazon-linux-extras packages
-      shell: "amazon-linux-extras enable python3.8 ansible2 docker"
+      shell: "amazon-linux-extras enable python3.8 ansible2 docker docker-compose"
 
     - name: clean yum metadata cache
       command: yum clean metadata
