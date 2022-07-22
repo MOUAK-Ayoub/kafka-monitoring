@@ -45,7 +45,9 @@ pipeline {
 	 
 	   steps {
 
-        dir('terraform') {
+		withAWS(credentials: "aws-keys", region: params.REGION) {
+
+         dir('terraform') {
             
 			sh '''
             
@@ -60,7 +62,7 @@ pipeline {
                 
 				'''
 
-
+		 }
         }
       
        }
@@ -82,7 +84,7 @@ pipeline {
 					echo "Execute playbooks"
 
 					ansible-playbook -i ./vars/aws_ec2.yml  main_play.yml
-					
+
 					'''
 				}
 			
