@@ -86,11 +86,12 @@ pipeline {
 
 					ansible-inventory -i ./vars/aws_ec2.yml --graph
 
-					echo "Execute playbooks"
-
-					ansible-playbook -i ./vars/aws_ec2.yml  main_play.yml
-
 					'''
+					ansiblePlaybook(credentialsId: 'ec2-key', 
+									inventory: 'vars/aws_ec2.yml',
+									playbook: 'main_play.yml',
+									extras: "-e env=dev")
+
 				 }
 				}
 		}

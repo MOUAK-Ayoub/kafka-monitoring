@@ -73,3 +73,7 @@
         
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
+
+
+    - name: Run Kafka topics UI and zoonavigator
+      shell: "docker-compose -f ~/kafka-topics-ui-docker-compose.yaml -f ~/zoonavigator-docker-compose.yaml up -d"
