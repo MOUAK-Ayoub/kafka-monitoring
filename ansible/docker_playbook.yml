@@ -23,6 +23,8 @@
         - device-mapper-persistent-data
         - lvm2
         - amazon-linux-extras
+        - docker-compose
+
 
     - name: Add extras repository
       shell: yum-config-manager --enable extras
