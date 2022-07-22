@@ -58,11 +58,3 @@
          daemon_reload: yes
        tags: launch
 
-     - name: Copy Docker config file
-       copy:
-        src: ../docker/{{ item}}
-        dest: ./docker/  
-       loop:
-          - kafka-topics-ui-docker-compose.yaml
-          - zoonavigator-docker-compose.yaml
-

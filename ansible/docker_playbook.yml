@@ -75,5 +75,13 @@
       ansible.builtin.reboot:
 
 
+    - name: Copy Docker config file
+      copy:
+        src: ../docker/{{ item}}
+        dest: ./docker/  
+      loop:
+        - kafka-topics-ui-docker-compose.yaml
+        - zoonavigator-docker-compose.yaml
+
     - name: Run Kafka topics UI and zoonavigator
-      shell: "docker-compose -f ~/kafka-topics-ui-docker-compose.yaml -f ~/zoonavigator-docker-compose.yaml up -d"
+      shell: "docker-compose -f ~/docker/kafka-topics-ui-docker-compose.yaml -f ~/docker/zoonavigator-docker-compose.yaml up -d"
