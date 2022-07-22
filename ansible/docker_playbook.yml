@@ -88,5 +88,9 @@
         - kafka-topics-ui-docker-compose.yaml
         - zoonavigator-docker-compose.yaml
 
+
+    - debug: 
+        msg: "{{ playbook_dir }}"
+
     - name: Run Kafka topics UI and zoonavigator
-      command: "docker-compose -f /home/ec2-user/docker/kafka-topics-ui-docker-compose.yaml -f /home/ec2-user/docker/zoonavigator-docker-compose.yaml up -d"
+      command: docker-compose -f /home/ec2-user/docker/kafka-topics-ui-docker-compose.yaml -f /home/ec2-user/docker/zoonavigator-docker-compose.yaml up -d
