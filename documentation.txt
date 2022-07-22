@@ -1,23 +1,16 @@
 # the kafka cluster must be started
 
-
 cd Kafka-setup/
-ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml --tags=launch
-ansible-playbook -i ./vars/inventory -e "env=dev"  kafka_playbook.yaml --tags=launch
 
 ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml kafka_playbook.yaml --tags=launch
 
+# If error ( see issue 4)
+ansible -i vars/inventory dev -b -m file -a "name=/data/kafka/ state=absent"
+mkdir /home/ansible/data/kafka
 -------------------------------------------------------------------------------------------------
 
-#Instantiate the enviroment on aws
-
-aws configure add the 2 keys (of the cloud_user ) and default region
-cd terraform
-./aws_tf_user.sh
 
 
-
--------------------------------------------------------------------------------------------------
 # If docker and docker-compose is not installed
 cd ansible/
 
@@ -86,8 +79,21 @@ bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka3:9092 --topic
 
 
 -----------------------------------------------------------------------------------------------------------------------------------
+Docker:
 
+docker-playbook-dnf.yaml is used to install docker in centos 
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
 Jenkins:
+
+To install jenkins:
+
+ ansible-playbook jenkins_playbook.yml
+
 
 user: ayoub
 pwd: ayoub2022
@@ -95,3 +101,4 @@ pwd: ayoub2022
 1/  On the Jenkins dashboard, go to Manage Jenkins > Manage Plugins in the Available tab. Search for the Pipeline: AWS Steps plugin and choose Install without restart.
 2 / Navigate to Manage Jenkins > Manage Credentials > Jenkins (global) > Global Credentials > Add Credentials.
 
+sudo service jenkins start

@@ -27,7 +27,7 @@ pipeline {
 		when { expression { params.INIT_AWS } }
 		steps {
 
-			withAWS(credentials: "aws-keys", region: 'us-east-1') {
+			withAWS(credentials: "aws-keys", region: params.REGION) {
                
 				dir('terraform') {
 		
@@ -44,12 +44,10 @@ pipeline {
 	   when { expression { params.INIT_TF } }
 	 
 	   steps {
-	   withAWS(credentials: "aws-keys", region: 'us-east-1') {
-
 
         dir('terraform') {
             
-			sh   '''
+			sh '''
             
                export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
                export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
@@ -58,14 +56,38 @@ pipeline {
 			   terraform plan
 			   terraform apply --auto-approve
 
-               
-                 '''
+                rm tokens.json
+                
+				'''
 
 
         }
       
-       }}
+       }
 	}
-   
+
+	stage('Install monitoring tools with ansible') {
+	
+		when { expression { params.INSTALL_MONITORING_TOOLS } }
+		steps {
+               
+				dir('ansible') {
+
+					sh '''
+
+					echo "List of ec2 instaces grouped by tag: "
+
+					ansible-inventory -i ./vars/aws_ec2.yml --graph
+
+					echo "Execute playbooks"
+
+					ansible-playbook -i ./vars/aws_ec2.yml  main_play.yml
+					
+					'''
+				}
+			
+		}
+	}
+		   
   }
 }
