@@ -82,10 +82,9 @@
         src: "/usr/local/bin/docker-compose"
         dest: "/usr/bin/docker-compose"
         state: link
-        
+
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
-
 
     - name: Copy Docker config file
       copy:
@@ -94,10 +93,6 @@
       loop:
         - kafka-topics-ui-docker-compose.yaml
         - zoonavigator-docker-compose.yaml
-
-
-    - debug: 
-        msg: "{{ playbook_dir }}"
 
     - name: Run Kafka topics UI and zoonavigator
       command: docker-compose -f /home/ec2-user/docker/kafka-topics-ui-docker-compose.yaml -f /home/ec2-user/docker/zoonavigator-docker-compose.yaml up -d

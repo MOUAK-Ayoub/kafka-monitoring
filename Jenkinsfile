@@ -4,7 +4,7 @@ pipeline {
 
   stages { 
 
-    stage('Git Pull ') {
+ /*   stage('Git Pull ') {
 	
 		  steps {
 
@@ -12,7 +12,7 @@ pipeline {
              
           }
     }
-    
+   */ 
     stage('Install awscli & TF'){
 
         steps {

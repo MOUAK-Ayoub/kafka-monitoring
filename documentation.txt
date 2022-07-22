@@ -5,16 +5,12 @@ cd Kafka-setup/
 ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml kafka_playbook.yaml --tags=launch
 
 # If error ( see issue 4)
-ansible -i vars/inventory dev -b -m file -a "name=/data/kafka/ state=absent"
-mkdir /home/ansible/data/kafka
+ansible -i vars/inventory dev -b -m file -a "name=/home/ansible/data/kafka/ state=absent"
+ansible -i vars/inventory dev  -b -m file -a "name=/home/ansible/data/kafka/ state=directory"
 
 
- -------------------------------------------------------------------------------------------------------------------
 
-# kafka topics UI and Zoonavigator
 
-cd ~/docker
-docker-compose -f kafka-topics-ui-docker-compose.yaml -f zoonavigator-docker-compose.yaml up -d
 -------------------------------------------------------------------------------------------------------------------
 Create a kafka dashboard
 
@@ -67,8 +63,6 @@ bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka3:9092 --topic
 Docker:
 
 docker-playbook-dnf.yaml is used to install docker in centos 
-
-
 
 
 
