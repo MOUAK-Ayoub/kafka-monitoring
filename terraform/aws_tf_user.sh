@@ -23,11 +23,6 @@ aws iam attach-user-policy --policy-arn $terraform_policy_arn --user-name terraf
 sleep 10s
 
 
-echo " Create tokens: "
-
-aws iam create-access-key --user-name terraform > tokens.json
-
-
 echo " Create bucket: "
 
 aws s3api create-bucket --bucket terraformstatefile2022

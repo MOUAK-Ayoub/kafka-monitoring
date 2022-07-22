@@ -51,6 +51,9 @@ pipeline {
             
 			sh '''
             
+			   echo " Create tokens: "
+
+			   aws iam create-access-key --user-name terraform > tokens.json
                export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
                export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
 
@@ -72,8 +75,10 @@ pipeline {
 	
 		when { expression { params.INSTALL_MONITORING_TOOLS } }
 		steps {
-               
-				dir('ansible') {
+               	
+				withAWS(credentials: "aws-keys", region: params.REGION) {
+
+				 dir('ansible') {
 
 					sh '''
 
@@ -86,8 +91,8 @@ pipeline {
 					ansible-playbook -i ./vars/aws_ec2.yml  main_play.yml
 
 					'''
+				 }
 				}
-			
 		}
 	}
 		   

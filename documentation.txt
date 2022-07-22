@@ -90,10 +90,17 @@ docker-playbook-dnf.yaml is used to install docker in centos
 -----------------------------------------------------------------------------------------------------------------------------------
 Jenkins:
 
+
+
 To install jenkins:
 
- ansible-playbook jenkins_playbook.yml
+ansible-playbook jenkins_playbook.yml
 
+Add jenkins to sudoers:
+
+vim sudoers
+# and add the line
+jenkins ALL=(ALL) NOPASSWD: ALL
 
 user: ayoub
 pwd: ayoub2022
