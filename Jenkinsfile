@@ -68,7 +68,7 @@ pipeline {
 	
  		when { 
 			anyOf {
-				
+
   				expression { params.INSTALL_DOCKER } 
         		expression { params.INSTALL_PROMETHEUS } 
     			expression { params.INSTALL_GRAFANA } 
@@ -111,7 +111,7 @@ pipeline {
             
 			   sh '''
             
-					terraform destroy
+					terraform destroy --force
 			
 				  '''
 
