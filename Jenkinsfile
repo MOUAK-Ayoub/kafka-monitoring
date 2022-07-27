@@ -66,7 +66,6 @@ pipeline {
 
 	stage('Install monitoring tools with ansible') {
 	
-		when { expression { params.INSTALL_MONITORING_TOOLS } }
 		steps {
                	
 				withAWS(credentials: "aws-keys", region: params.REGION) {
@@ -83,11 +82,7 @@ pipeline {
 					ansiblePlaybook(credentialsId: 'ec2-key', 
 									inventory: 'aws_ec2.yml',
 									playbook: 'main_play.yml',
-									extras: "-e env=dev 
-											 -e install_docker=${INSTALL_DOCKER}
- 											 -e install_prometheus=${INSTALL_PROMETHEUS}
- 											 -e install_grafana=${INSTALL_GRAFANA}
-											"
+									extras: "-e env=dev -e install_docker=${INSTALL_DOCKER} -e install_prometheus=${INSTALL_PROMETHEUS} -e install_grafana=${INSTALL_GRAFANA}"
 									)
 
 				 }
