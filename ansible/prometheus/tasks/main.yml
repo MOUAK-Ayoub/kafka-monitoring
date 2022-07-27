@@ -1,2 +1,53 @@
 ---
 # tasks file for prometheus
+ 
+
+     - name: install java 8 
+       yum:
+         name: "java-{{java.version}}-openjdk-devel"
+         state: latest
+
+     - name: Check the prometheus directory exists
+       stat:
+         path: /home/ec2-user/prometheus
+       register: prometheus_dir  
+                
+     - name: Download prometheus 
+       get_url:
+         url: "https://github.com/prometheus/prometheus/releases/download/v2.36.2/prometheus-2.36.2.linux-amd64.tar.gz"
+         dest: /tmp/
+       when: not prometheus_dir.stat.exists
+         
+     - name: Extract prometheus tar
+       unarchive:
+         remote_src: yes
+         src: /tmp/prometheus-2.36.2.linux-amd64.tar.gz
+         dest: /home/ec2-user
+       when: not prometheus_dir.stat.exists
+        
+     - name:  rename prometheus folder
+       command: "mv /home/ec2-user/prometheus-2.36.2.linux-amd64 /home/ec2-user/prometheus"
+       when: not prometheus_dir.stat.exists
+
+     - name: Copy /etc/hosts
+       copy:
+        src: hosts
+        dest: /etc/hosts
+  
+     - name: Copy prometheus config file
+       copy:
+        src: prometheus.yml
+        dest: ./prometheus/prometheus.yml
+
+     - name: Add prometheus service
+       copy:
+        src: prometheus.service
+        dest: /etc/systemd/system/prometheus.service
+        mode: u+x
+
+     - name: Start prometheus service
+       systemd:
+         name: prometheus
+         state: restarted
+         daemon_reload: yes
+       tags: launch
