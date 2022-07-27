@@ -68,6 +68,16 @@ pipeline {
 	
 		steps {
                	
+
+ 			   when { 
+				  anyOf {
+						expression { params.INSTALL_DOCKER } 
+						expression { params.INSTALL_PROMETHEUS } 
+						expression { params.INSTALL_GRAFANA } 
+
+				  }
+			    }
+
 				withAWS(credentials: "aws-keys", region: params.REGION) {
 
 				 dir('ansible') {
@@ -89,6 +99,29 @@ pipeline {
 				}
 		}
 	}
+
+	stage('Terraform destroy infrastructure') {
+	
+	   when { expression { params.DESTROY_TF } }
+	 
+	   steps {
+
+		withAWS(credentials: "aws-keys", region: params.REGION) {
+
+            dir('terraform') {
+            
+			   sh '''
+            
+					terraform destroy
+			
+				  '''
+
+		    }
+        }
+      
+       }
+	}
+
 		   
   }
 }
