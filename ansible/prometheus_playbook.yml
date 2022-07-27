@@ -4,6 +4,6 @@
   hosts: administration
   remote_user: ec2-user
   become: yes
-  vars_files:
-     - "./vars/{{env}}.yaml"
+  roles:
+    - role: 'prometheus'
 
