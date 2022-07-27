@@ -25,12 +25,12 @@
 
      - name: Copy grafana  config file
        copy:
-        src: ../grafana/defaults.ini
+        src: defaults.ini
         dest: ./grafana/conf/defaults.ini
 
      - name: Add grafana service
        copy:
-        src: ../grafana/grafana.service
+        src: grafana.service
         dest: /etc/systemd/system/grafana.service
         mode: u+x
 
