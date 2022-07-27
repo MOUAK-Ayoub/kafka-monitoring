@@ -66,18 +66,17 @@ pipeline {
 
 	stage('Install monitoring tools with ansible') {
 	
+ 		when { 
+			anyOf {
+				
+  				expression { params.INSTALL_DOCKER } 
+        		expression { params.INSTALL_PROMETHEUS } 
+    			expression { params.INSTALL_GRAFANA } 
+			}
+		}
+
 		steps {
                	
-
- 			   when { 
-				  anyOf {
-						expression { params.INSTALL_DOCKER } 
-						expression { params.INSTALL_PROMETHEUS } 
-						expression { params.INSTALL_GRAFANA } 
-
-				  }
-			    }
-
 				withAWS(credentials: "aws-keys", region: params.REGION) {
 
 				 dir('ansible') {
