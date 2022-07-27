@@ -1,45 +1,16 @@
 # the kafka cluster must be started
 
-
 cd Kafka-setup/
-ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml --tags=launch
-ansible-playbook -i ./vars/inventory -e "env=dev"  kafka_playbook.yaml --tags=launch
 
 ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml kafka_playbook.yaml --tags=launch
 
--------------------------------------------------------------------------------------------------
-
-#Instantiate the enviroment on aws
-
-aws configure add the 2 keys (of the cloud_user ) and default region
-cd terraform
-./aws_tf_user.sh
+# If error ( see issue 4)
+ansible -i vars/inventory dev -b -m file -a "name=/home/ansible/data/kafka/ state=absent"
+ansible -i vars/inventory dev  -b -m file -a "name=/home/ansible/data/kafka/ state=directory"
 
 
--------------------------------------------------------------------------------------------------
-
-# Put aws ec2 instance public ip (or public dns) on the inventory
-# Put on./ansible/vars/hosts the public ip of the kafak1 broker
-# Put on ./prometheus.yml the port of the jmx agent (the one on KAFKA_OPTS)
-
--------------------------------------------------------------------------------------------------
-# If docker and docker-compose is not installed
-
-cd ansible/
-
-ansible-playbook ../docker/docker-playbook.yaml \
-prometheus_playbook.yml \
-grafana_playbook.yml \
--i ./vars/aws_ec2.yaml \
--e "env=dev" 
 
 
--------------------------------------------------------------------------------------------------------------------
-
-# kafka topics UI and Zoonavigator
-
-cd ~/docker
-docker-compose -f kafka-topics-ui-docker-compose.yaml -f zoonavigator-docker-compose.yaml up -d
 -------------------------------------------------------------------------------------------------------------------
 Create a kafka dashboard
 
@@ -78,7 +49,7 @@ http://5533aa4e264c.mylabserver.com:3000/graph
 # Kafka command
 
 bin/kafka-topics.sh --zookeeper zookeeper1:2222/kafka \
-  --topic test --create \
+  --topic test2 --create \
   --partitions 3 --replication-factor 2
 
 
@@ -89,11 +60,54 @@ bin/kafka-console-consumer.sh --bootstrap-server kafka1:9092,kafka3:9092 --topic
 
 
 -----------------------------------------------------------------------------------------------------------------------------------
+Docker:
 
+docker-playbook-dnf.yaml is used to install docker in centos 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
 Jenkins:
+
+
+
+To install jenkins:
+
+ansible-playbook jenkins_playbook.yml
+
+Add jenkins to sudoers:
+
+vim sudoers
+# and add the line
+jenkins ALL=(ALL) NOPASSWD: ALL
 
 user: ayoub
 pwd: ayoub2022
 
-1/  On the Jenkins dashboard, go to Manage Jenkins > Manage Plugins in the Available tab. Search for the Pipeline: AWS Steps plugin and choose Install without restart.
-2 / Navigate to Manage Jenkins > Manage Credentials > Jenkins (global) > Global Credentials > Add Credentials.
+
+####################################### Install plugins#######################################################
+
+- Locale (language) plugin
+- AWS Steps plugin 
+- Ansible plugin
+
+###############################################################################################################
+
+
+####################################### Set global credentials ################################################
+
+1/ Git token
+# Add git token on global credentials
+
+
+2/ Aws keys
+# Add aws secret keys in global credentials
+ Navigate to Manage Jenkins > Manage Credentials > Jenkins (global) > Global Credentials > Add Credentials.
+
+sudo service jenkins start
+
+3/ Ansible private key ( the one equivalent ot the public key id_rsa.pub used in terraform ec2 instance, see instance.tf)
+add private key in glocal credentials
+
+
+###############################################################################################################

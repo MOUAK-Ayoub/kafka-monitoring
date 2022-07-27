@@ -13,7 +13,7 @@
        register: r
        loop: "{{ kafka.servers }}"
  
-     - name: Configure swappinness
+     - name: Configure hosts file
        lineinfile:
           path: ./vars/hosts
           line: " {{ item.1.stdout }} kafka{{ item.0 +1 }}"

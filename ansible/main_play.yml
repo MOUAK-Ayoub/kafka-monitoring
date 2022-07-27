@@ -1,0 +1,10 @@
+---
+
+  - import_playbook: config_hosts_playbook.yml
+
+  - import_playbook: docker_playbook.yml
+
+  - import_playbook: prometheus_playbook.yml
+
+  - import_playbook: grafana_playbook.yml
+

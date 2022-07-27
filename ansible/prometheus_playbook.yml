@@ -6,8 +6,7 @@
   become: yes
   vars_files:
      - "./vars/{{env}}.yaml"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+
   tasks:
      - name: install java 8 
        yum:
@@ -58,12 +57,4 @@
          state: restarted
          daemon_reload: yes
        tags: launch
-
-     - name: Copy Docker config file
-       copy:
-        src: ../docker/{{ item}}
-        dest: ./docker/  
-       loop:
-          - kafka-topics-ui-docker-compose.yaml
-          - zoonavigator-docker-compose.yaml
 

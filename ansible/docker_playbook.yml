@@ -1,4 +1,3 @@
-# Ansible playbook AWS - install docker (2021)
 ---
 - name: "AWS - Install docker"
   hosts: administration
@@ -24,11 +23,12 @@
         - lvm2
         - amazon-linux-extras
 
+
     - name: Add extras repository
       shell: yum-config-manager --enable extras
 
     - name: Enable Some packages from amazon-linux-extras packages
-      shell: "amazon-linux-extras enable python3.8 ansible2 docker"
+      shell: "amazon-linux-extras enable python3.8 ansible2 docker "
 
     - name: clean yum metadata cache
       command: yum clean metadata
@@ -63,13 +63,36 @@
         packages:
         - boto
         - boto3
-        - docker-compose
-        
+
+    - name: Install docker compose
+      shell: "curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+
+    - name: Let docker-compose be executable
+      shell: "chmod +x /usr/local/bin/docker-compose"
+
+
     - name: Add the current user to the docker group
       user:
         name: ec2-user
         groups: docker
         append: yes
-        
+
+    - name: Create symbolic link for docker-compose
+      file:
+        src: "/usr/local/bin/docker-compose"
+        dest: "/usr/bin/docker-compose"
+        state: link
+
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
+
+    - name: Copy Docker config file
+      copy:
+        src: ../docker/{{ item}}
+        dest: ./docker/  
+      loop:
+        - kafka-topics-ui-docker-compose.yaml
+        - zoonavigator-docker-compose.yaml
+
+    - name: Run Kafka topics UI and zoonavigator
+      command: docker-compose -f /home/ec2-user/docker/kafka-topics-ui-docker-compose.yaml -f /home/ec2-user/docker/zoonavigator-docker-compose.yaml up -d
