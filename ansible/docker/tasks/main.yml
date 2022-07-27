@@ -1,9 +1,5 @@
 ---
-- name: "AWS - Install docker"
-  hosts: administration
-  remote_user: ec2-user
-  become: yes
-  tasks:
+# tasks file for docker
     - name: Update all packages
       yum:
         name: '*'
@@ -88,7 +84,7 @@
 
     - name: Copy Docker config file
       copy:
-        src: ../docker/{{ item}}
+        src: {{ item}}
         dest: ./docker/  
       loop:
         - kafka-topics-ui-docker-compose.yaml

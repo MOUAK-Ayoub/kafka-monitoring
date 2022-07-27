@@ -77,13 +77,18 @@ pipeline {
 
 					echo "List of ec2 instaces grouped by tag: "
 
-					ansible-inventory -i ./vars/aws_ec2.yml --graph
+					ansible-inventory -i aws_ec2.yml --graph
 
 					'''
 					ansiblePlaybook(credentialsId: 'ec2-key', 
-									inventory: 'vars/aws_ec2.yml',
+									inventory: 'aws_ec2.yml',
 									playbook: 'main_play.yml',
-									extras: "-e env=dev -e install_docker=${INSTALL_DOCKER}")
+									extras: "-e env=dev 
+											 -e install_docker=${INSTALL_DOCKER}
+ 											 -e install_prometheus=${INSTALL_PROMETHEUS}
+ 											 -e install_grafana=${INSTALL_GRAFANA}
+											"
+									)
 
 				 }
 				}

@@ -1,2 +1,42 @@
 ---
 # tasks file for grafana
+
+     - name: Check the grafana directory exists
+       stat:
+         path: /home/ec2-user/grafana
+       register: grafana_dir  
+                
+     - name: Download grafana 
+       get_url:
+         url: "https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.2.1.linux-amd64.tar.gz"
+         dest: /tmp/
+       when: not grafana_dir.stat.exists
+         
+     - name: Extract grafana tar
+       unarchive:
+         remote_src: yes
+         src: /tmp/grafana-5.2.1.linux-amd64.tar.gz
+         dest: /home/ec2-user/
+       when: not grafana_dir.stat.exists
+        
+     - name:  rename prometheus folder
+       command: "mv /home/ec2-user/grafana-5.2.1 /home/ec2-user/grafana"
+       when: not grafana_dir.stat.exists
+
+     - name: Copy grafana  config file
+       copy:
+        src: ../grafana/defaults.ini
+        dest: ./grafana/conf/defaults.ini
+
+     - name: Add grafana service
+       copy:
+        src: ../grafana/grafana.service
+        dest: /etc/systemd/system/grafana.service
+        mode: u+x
+
+     - name: Start grafana service
+       systemd:
+         name: grafana
+         state: restarted
+         daemon_reload: yes
+       tags: launch

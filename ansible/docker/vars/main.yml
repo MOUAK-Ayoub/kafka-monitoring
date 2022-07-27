@@ -1,0 +1,13 @@
+---
+# vars file for prometheus
+java:
+  version: 1.8.0
+
+kafka:
+  servers:
+   - dns: 5533aa4e264c.mylabserver.com
+     hostname: kafka1 
+   - dns: 5533aa4e262c.mylabserver.com
+     hostname: kafka2 
+   - dns: 5533aa4e263c.mylabserver.com
+     hostname: kafka3 

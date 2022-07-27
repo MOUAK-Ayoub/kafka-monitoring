@@ -1,9 +1,18 @@
 ---
 
-  - import_playbook: docker_playbook.yml
-    when: "{{install_docker}} "
+- name: Install monitoring tools
+  hosts: administration
+  remote_user: ec2-user
+  become: yes
+  roles:
+    - role: 'docker'
+      when: "{{install_docker}} "
 
-  - import_playbook: prometheus_playbook.yml
+    - role: 'prometheus'
+      when: "{{install_prometheus}} "
 
-  - import_playbook: grafana_playbook.yml
+    - role: 'grafana'
+      when: "{{install_grafana}} "
+
+
 
