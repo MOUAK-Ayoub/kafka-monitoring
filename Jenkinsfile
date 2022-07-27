@@ -110,7 +110,7 @@ pipeline {
             dir('terraform') {
             
 			   sh '''
-            
+					echo $AWS_ACCESS_KEY_ID
 					terraform destroy --force
 			
 				  '''
