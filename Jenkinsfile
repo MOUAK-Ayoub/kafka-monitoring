@@ -4,20 +4,13 @@ pipeline {
 
   stages { 
 
- /*   stage('Git Pull ') {
-	
-		  steps {
 
-            git credentialsId: 'fb366a5d-341f-4b1a-9373-7f6d1bff495f', url: 'https://github.com/MOUAK-Ayoub/kafka-monitoring.git'
-             
-          }
-    }
-   */ 
     stage('Install awscli & TF'){
 
         steps {
-		
+
 			sh ' echo installed '
+		
 		}
     }
     
@@ -47,25 +40,25 @@ pipeline {
 
 		withAWS(credentials: "aws-keys", region: params.REGION) {
 
-         dir('terraform') {
+            dir('terraform') {
             
-			sh '''
+			   sh '''
             
-			   echo " Create tokens: "
+			    echo " Create tokens: "
 
-			   aws iam create-access-key --user-name terraform > tokens.json
-               export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
-               export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
+			    aws iam create-access-key --user-name terraform > tokens.json
+                export TF_VAR_aws_access_key=$(jq -r '.AccessKey.AccessKeyId' tokens.json)
+                export TF_VAR_aws_secret_key=$(jq -r '.AccessKey.SecretAccessKey' tokens.json)
+ 
+                terraform init -reconfigure
+			    terraform plan
+			    terraform apply --auto-approve
 
-               terraform init -reconfigure
-			   terraform plan
-			   terraform apply --auto-approve
-
-                rm tokens.json
+                 rm tokens.json
                 
 				'''
 
-		 }
+		    }
         }
       
        }
