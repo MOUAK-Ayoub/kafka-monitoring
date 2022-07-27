@@ -11,7 +11,7 @@
      - name: Configure hosts file
        lineinfile:
           create: true
-          path: ../files/hosts
+          path: prometheus/files/hosts
           line: " {{ item.1.stdout }} kafka{{ item.0 +1 }}"
        with_indexed_items: "{{r.results}}"
        delegate_to: localhost
