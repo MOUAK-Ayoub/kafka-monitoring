@@ -83,7 +83,7 @@ pipeline {
 					ansiblePlaybook(credentialsId: 'ec2-key', 
 									inventory: 'vars/aws_ec2.yml',
 									playbook: 'main_play.yml',
-									extras: "-e env=dev")
+									extras: "-e env=dev -e install_docker=${INSTALL_DOCKER}")
 
 				 }
 				}
