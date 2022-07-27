@@ -10,7 +10,8 @@
 
      - name: Configure hosts file
        lineinfile:
-          path: hosts
+          create: true
+          path: ../files/hosts
           line: " {{ item.1.stdout }} kafka{{ item.0 +1 }}"
        with_indexed_items: "{{r.results}}"
        delegate_to: localhost
