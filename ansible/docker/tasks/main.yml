@@ -84,7 +84,7 @@
 
     - name: Copy Docker config file
       copy:
-        src: {{ item}}
+        src: "{{ item}}"
         dest: ./docker/  
       loop:
         - kafka-topics-ui-docker-compose.yaml
