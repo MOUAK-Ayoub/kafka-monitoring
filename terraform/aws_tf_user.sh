@@ -22,8 +22,6 @@ echo " Attach policy to user: "
 aws iam attach-user-policy --policy-arn $terraform_policy_arn --user-name terraform
 sleep 10s
 
-
 echo " Create bucket: "
 
 aws s3api create-bucket --bucket terraformstatefile2022
-

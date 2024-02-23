@@ -3,18 +3,8 @@ pipeline {
   agent any 
 
   stages { 
-
-
-    stage('Install awscli & TF'){
-
-        steps {
-
-			sh ' echo installed '
-		
-		}
-    }
     
-    
+
     stage('AWS init') {
 	
 		when { expression { params.INIT_AWS } }
@@ -54,7 +44,7 @@ pipeline {
 			    terraform plan
 			    terraform apply --auto-approve
 
-                 rm tokens.json
+                rm tokens.json
                 
 				'''
 

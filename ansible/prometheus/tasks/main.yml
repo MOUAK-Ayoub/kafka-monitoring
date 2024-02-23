@@ -17,7 +17,6 @@
        delegate_to: localhost
        run_once: true
                 
-
      - name: install java 8 
        yum:
          name: "java-{{java.version}}-openjdk-devel"

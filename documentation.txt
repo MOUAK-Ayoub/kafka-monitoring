@@ -2,6 +2,7 @@
 
 cd Kafka-setup/
 
+sudo service kafka status
 ansible-playbook -i ./vars/inventory -e "env=dev"  zookeeper_playbook.yaml kafka_playbook.yaml --tags=launch
 
 # If error ( see issue 4)
@@ -9,16 +10,11 @@ ansible -i vars/inventory dev -b -m file -a "name=/home/ansible/data/kafka/ stat
 ansible -i vars/inventory dev  -b -m file -a "name=/home/ansible/data/kafka/ state=directory"
 
 
-
-
 -------------------------------------------------------------------------------------------------------------------
 Create a kafka dashboard
 
 1/ Create a datasource with prometheus, putting the url of prometheus localhost:9090
 2/ Create a dashboard with the datasource above
-
-
-
 
 -------------------------------------------------------------------------------------------------------------------
 # on kafka.service
@@ -114,3 +110,7 @@ add private key in glocal credentials
 
 
 ###############################################################################################################
+Ubuntu machine credentials:
+
+cloud_user
+test2022

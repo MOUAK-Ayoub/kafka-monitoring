@@ -30,7 +30,6 @@ resource "aws_subnet" "subnet_monitoring" {
 }
 
 
-
 resource "aws_route_table" "monitoring-route" {
   provider = aws.region-monitoring
   vpc_id   = aws_vpc.aws_vpc_monitoring.id

@@ -3,7 +3,6 @@ data "aws_ssm_parameter" "ami-linux-monitoring" {
   name     = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
-
 resource "aws_key_pair" "key-monitoring" {
   provider   = aws.region-monitoring
   key_name   = "monitoring"
@@ -30,6 +29,4 @@ resource "aws_instance" "monitoring-master" {
   depends_on = [aws_main_route_table_association.vpc_route_asso_monitoring]
 
 }
-
-
 
